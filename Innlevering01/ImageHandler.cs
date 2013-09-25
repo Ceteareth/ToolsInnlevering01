@@ -29,16 +29,10 @@ namespace Innlevering01
 
             if(fileInfo.Length > 0)
             {
-                int i = 0;
                 // Loading images into container class
-                foreach (FileInfo info in fileInfo)
-                {
-                    images[i] = new ImageNode(new BitmapImage(new Uri(info.FullName)), info.Name);
-                    Console.WriteLine(info.Name);
-                    i++;
-                }
+                for (int i = 0; i < fileInfo.Length; i++)
+                    images[i] = new ImageNode(new BitmapImage(new Uri(fileInfo[i].FullName)), fileInfo[i].Name);
             }
-
              /// NOTE: Add exception or other type of handling in case of no images in project
         }
 
