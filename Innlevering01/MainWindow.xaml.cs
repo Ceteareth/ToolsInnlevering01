@@ -22,7 +22,13 @@ namespace Innlevering01
     {
         public MainWindow()
         {
+            ImageHandler imgHandler = new ImageHandler();
             InitializeComponent();
+        }
+
+        private void fileOpen_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
