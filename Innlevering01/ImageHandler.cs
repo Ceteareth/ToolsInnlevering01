@@ -13,26 +13,36 @@ namespace Innlevering01
 {
     class ImageHandler
     {
-        Dictionary<string, ImageNode> images;
+        ImageNode[] images;
 
         public ImageHandler()
         {
-            images = new Dictionary<string, ImageNode>();
+            // Get dynamic project path
             string path = Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory());
             DirectoryInfo dirInfo = new DirectoryInfo(Path.Combine(Path.GetDirectoryName(path),"GFX\\"));
-            Console.WriteLine(dirInfo);
+            
             FileInfo[] fileInfo = dirInfo.GetFiles("*.png");
+
+            images = new ImageNode[fileInfo.Length];
 
             if(fileInfo.Length > 0)
             {
+                int i = 0;
+                // Loading images into container class
                 foreach (FileInfo info in fileInfo)
                 {
-                    Console.WriteLine(info.FullName);
-                    images.Add(info.FullName, new ImageNode(new BitmapImage(new Uri(info.FullName)), info.FullName));
+                    images[i] = new ImageNode(new BitmapImage(new Uri(info.FullName)), info.Name);
+                    Console.WriteLine(info.Name);
+                    i++;
                 }
             }
 
              /// NOTE: Add exception or other type of handling in case of no images in project
+        }
+
+        public ImageNode[] getListBoxItemImages()
+        {
+            return images;
         }
     }
 }

@@ -13,9 +13,9 @@
                 </MenuItem>
             </Menu>
             <TextBox DockPanel.Dock="Bottom"></TextBox>
-            <ListBox DockPanel.Dock="Left" Width="172">
-                
-            </ListBox>
+            <StackPanel x:Name ="tileMainWrap" DockPanel.Dock="Left" Width="160" Loaded="tileContainer_Loaded" Orientation="Vertical" >
+
+            </StackPanel>
             <TextBox Background="White"></TextBox>
         </DockPanel>
     </Grid>

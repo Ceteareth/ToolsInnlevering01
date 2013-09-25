@@ -26,6 +26,7 @@ namespace Innlevering01
 
         public ImageNode(ImageSource image, string filename)
         {
+            filename.Replace(".png", "");
             imageSource = image;
             fileName = filename;
         }
