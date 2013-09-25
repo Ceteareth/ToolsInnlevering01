@@ -15,6 +15,8 @@ namespace Innlevering01
     {
         ImageNode[] images;
 
+        // Gets images from the GFX folder for now
+        // Should be replaced by a database, shouldn't be too hard
         public ImageHandler()
         {
             // Get dynamic project path

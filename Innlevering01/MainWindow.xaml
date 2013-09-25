@@ -6,7 +6,7 @@
         <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
-                    <MenuItem x:Name="fileOpen" Header="_Open" Click="fileOpen_Click"/>
+                    <MenuItem x:Name="fileOpen" Header="_Open" />
                     <MenuItem x:Name="fileClose" Header="_Close"/>
                     <MenuItem x:Name="fileSave" Header="_Save"/>
                     <MenuItem x:Name="fileExit" Header="_Exit"/>

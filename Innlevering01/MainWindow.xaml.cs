@@ -28,11 +28,6 @@ namespace Innlevering01
             InitializeComponent();
         }
 
-        private void fileOpen_Click(object sender, RoutedEventArgs e)
-        {
-            // Test
-        }
-
         private void tileContainer_Loaded(object sender, RoutedEventArgs e)
         {
             ImageNode[] tiles = new ImageNode[imgHandler.getListBoxItemImages().Length];
@@ -40,6 +35,7 @@ namespace Innlevering01
 
             for (int i = 0; i < tiles.Length; i += 2)
             {
+                // Creates a new container so that it displays in twos 
                 StackPanel horizontalContainer = new StackPanel();
                 horizontalContainer.Orientation = Orientation.Horizontal;
 
@@ -50,6 +46,7 @@ namespace Innlevering01
                 ListBoxItem firstItem = new ListBoxItem();
                 firstItem.Name = tiles[i].Filename.Replace(".png", "");
                 firstItem.Content = firstImage;
+                firstItem.PreviewMouseDown += tileListener;
 
                 horizontalContainer.Children.Add(firstItem);
 
@@ -62,15 +59,24 @@ namespace Innlevering01
                     secondImage.Source = tiles[i + 1].ImageSource;
                     secondImage.Margin = new Thickness(5);
 
+                    // Enable selection, and removes .png from the name
                     ListBoxItem secondItem = new ListBoxItem();
                     secondItem.Name = tiles[i + 1].Filename.Replace(".png", "");
                     secondItem.Content = secondImage;
+                    secondItem.PreviewMouseDown += tileListener;
 
                     horizontalContainer.Children.Add(secondItem);
                 }
                 
                 tileMainWrap.Children.Add(horizontalContainer);
             }
+        }
+
+        // Responds to clicks on tiles in left panel
+        private void tileListener(object sender, EventArgs e)
+        {
+            ListBoxItem clickedTile = sender as ListBoxItem;
+            Console.WriteLine("Sender: " + clickedTile.Name);
         }
     }
 }
