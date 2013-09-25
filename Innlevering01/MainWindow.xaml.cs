@@ -43,6 +43,7 @@ namespace Innlevering01
                 firstImage.Source = tiles[i].ImageSource;
                 firstImage.Margin = new Thickness(5);
 
+                // Enable selection, and removes .png from the name
                 ListBoxItem firstItem = new ListBoxItem();
                 firstItem.Name = tiles[i].Filename.Replace(".png", "");
                 firstItem.Content = firstImage;
@@ -50,10 +51,7 @@ namespace Innlevering01
 
                 horizontalContainer.Children.Add(firstItem);
 
-                if (i + 1 >= tiles.Length)
-                    break;
-
-                else
+                if (i + 1 < tiles.Length)
                 {
                     Image secondImage = new Image();
                     secondImage.Source = tiles[i + 1].ImageSource;
@@ -67,7 +65,10 @@ namespace Innlevering01
 
                     horizontalContainer.Children.Add(secondItem);
                 }
-                
+
+                else
+                    break;
+
                 tileMainWrap.Children.Add(horizontalContainer);
             }
         }
@@ -77,6 +78,21 @@ namespace Innlevering01
         {
             ListBoxItem clickedTile = sender as ListBoxItem;
             Console.WriteLine("Sender: " + clickedTile.Name);
+        }
+
+        private void exit(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void OnMouseMove(object sender, MouseEventArgs e)
+        {
+            var element = (UIElement)e.Source;
+
+            int c = Grid.GetColumn(element);
+            int r = Grid.GetRow(element);
+
+            Console.WriteLine("Column: " + c + " Row: " + r);
         }
     }
 }
