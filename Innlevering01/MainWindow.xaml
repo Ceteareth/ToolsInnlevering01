@@ -14,8 +14,8 @@
             </Menu>
             <TextBox DockPanel.Dock="Bottom" BorderBrush="#FF252526" Background="#FF2D2D30" BorderThickness="0,0,0,0"></TextBox>
             <StackPanel x:Name ="tileMainWrap" DockPanel.Dock="Left" Width="160" Loaded="tileContainer_Loaded" Orientation="Vertical" Background="#FF252526" ></StackPanel>
-            <Grid x:Name="mainGrid" ShowGridLines="True" Background="#FF3A3A3A" PreviewMouseDown="OnMouseMove" Width="600" >
-                
+            <Grid x:Name="mainGrid" Background="#FF3A3A3A" PreviewMouseDown="OnMouseMove" Width="600" Loaded="mainGrid_Loaded" >
+                <UniformGrid Name="UniGrid" />
             </Grid>
         </DockPanel>
     </Grid>

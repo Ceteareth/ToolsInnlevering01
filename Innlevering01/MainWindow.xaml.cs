@@ -94,5 +94,23 @@ namespace Innlevering01
 
             Console.WriteLine("Column: " + c + " Row: " + r);
         }
+
+        void mainGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+            AddRows(new Size(64, 64));
+        }
+
+        private void AddRows(Size recSize)
+        {
+            UniGrid.Columns = (int)(UniGrid.ActualWidth / recSize.Width);
+            UniGrid.Rows = (int)(UniGrid.ActualHeight / recSize.Height);
+            Console.WriteLine("Column: " + UniGrid.Columns + " Row: " + UniGrid.Rows);
+            for (int i = 0; i < UniGrid.Columns * UniGrid.Rows; i++)
+            {
+                UniGrid.Children.Add(new Rectangle { Fill = new SolidColorBrush(Colors.Yellow), Margin = new Thickness(1) });
+            }
+
+            
+        }
     }
 }

@@ -8,12 +8,14 @@ namespace Innlevering01
 {
     class GridHandler
     {
-        int rows;
-        int columns;
+        int rows = 10;
+        int columns = 10;
 
         public GridHandler()
         {
 
         }
+
+        
     }
 }
