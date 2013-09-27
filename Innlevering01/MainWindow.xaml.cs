@@ -100,6 +100,7 @@ namespace Innlevering01
             AddRows(new Size(64, 64));
         }
 
+        // Might approach this differently, hard to get coordinates correctly.
         private void AddRows(Size recSize)
         {
             UniGrid.Columns = (int)(UniGrid.ActualWidth / recSize.Width);
