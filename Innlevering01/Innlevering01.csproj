@@ -83,7 +83,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GridHandler.cs" />
+    <Compile Include="GridTile.cs" />
     <Compile Include="ImageHandler.cs" />
     <Compile Include="ImageNode.cs" />
     <Compile Include="MainWindow.xaml.cs">

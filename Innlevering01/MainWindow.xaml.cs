@@ -110,7 +110,15 @@ namespace Innlevering01
                 UniGrid.Children.Add(new Rectangle { Fill = new SolidColorBrush(Colors.Yellow), Margin = new Thickness(1) });
             }
 
-            
+            int columnCounter = 0;
+            for (int i = 0; i < UniGrid.Columns * UniGrid.Rows; i++)
+            {   
+                Console.WriteLine(UniGrid.Children[i] + " on column " + columnCounter + " row " + (int)i / UniGrid.Columns);
+                if (columnCounter != UniGrid.Columns - 1)
+                    columnCounter++;
+                else
+                    columnCounter = 0;
+            }
         }
     }
 }
