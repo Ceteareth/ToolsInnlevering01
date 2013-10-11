@@ -23,6 +23,7 @@ namespace Innlevering01
         ImageHandler imgHandler;
         List<GridTile> gridTileContainer;
 
+
         public MainWindow()
         {
             imgHandler = new ImageHandler();
@@ -49,7 +50,7 @@ namespace Innlevering01
                 ListBoxItem firstItem = new ListBoxItem();
                 firstItem.Name = tiles[i].Filename.Replace(".png", "");
                 firstItem.Content = firstImage;
-                firstItem.PreviewMouseDown += tileListener;
+                firstItem.PreviewMouseDown += tileSelectionListener;
 
                 horizontalContainer.Children.Add(firstItem);
 
@@ -63,7 +64,7 @@ namespace Innlevering01
                     ListBoxItem secondItem = new ListBoxItem();
                     secondItem.Name = tiles[i + 1].Filename.Replace(".png", "");
                     secondItem.Content = secondImage;
-                    secondItem.PreviewMouseDown += tileListener;
+                    secondItem.PreviewMouseDown += tileSelectionListener;
 
                     horizontalContainer.Children.Add(secondItem);
                 }
@@ -76,13 +77,24 @@ namespace Innlevering01
         }
 
         // Responds to clicks on tiles in left panel
-        private void tileListener(object sender, EventArgs e)
+        private void tileSelectionListener(object sender, EventArgs e)
         {
             Button clickedTile = sender as Button;
+
             if (clickedTile != null)
             {
                 Console.WriteLine("Sender: " + Grid.GetRow(clickedTile));
             }
+//             Image selectedImage = sender as Image;
+//             Console.WriteLine(selectedImage.Source);
+//             setSelectedTileImage(selectedImage);
+        }
+
+        private void setSelectedTileImage(Image image)
+        {
+//             ImageBrush brush = new ImageBrush();
+//             brush.ImageSource = image.Source;
+//             selectedTileGrid.Background = brush;
         }
 
         private void exit(object sender, EventArgs e)
@@ -90,13 +102,12 @@ namespace Innlevering01
             Environment.Exit(0);
         }
 
-        private void OnMouseMove(object sender, MouseEventArgs e)
+        private void gridTileListener(object sender, MouseEventArgs e)
         {
             var element = (UIElement)e.Source;
 
             int c = Grid.GetColumn(element);
             int r = Grid.GetRow(element);
-
 
             Console.WriteLine("Column: " + c + " Row: " + r);
         }
@@ -127,7 +138,6 @@ namespace Innlevering01
 
                     tile.Background = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
                     tile.ShowGridLines = true;
-                    Console.WriteLine("Created tile " + i + " with height " + tile.ActualHeight + " and width " + tile.ActualWidth);
                     Grid.SetColumn(tile, i);
                     Grid.SetRow(tile, j);
                     UniGrid.Children.Add(tile);
