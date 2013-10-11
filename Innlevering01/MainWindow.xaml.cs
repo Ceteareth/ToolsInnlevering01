@@ -121,24 +121,29 @@ namespace Innlevering01
 
         void mainGrid_Loaded(object sender, RoutedEventArgs e)
         {
-            AddRows();
+            AddRows(20, 20);
         }
 
-        private void AddRows()
+        private void AddRows(int rows, int columns)
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < columns; i++)
             {
                 ColumnDefinition colDef = new ColumnDefinition();
-                colDef.Width = new GridLength(20);
+                colDef.Width = new GridLength(10);
                 UniGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                
+            }
+
+            for (int i = 0; i < rows; i++)
+            {
                 RowDefinition rowDef = new RowDefinition();
                 rowDef.Height = new GridLength(10);
                 UniGrid.RowDefinitions.Add(new RowDefinition());
             }
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < rows; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < columns; j++)
                 {
                     Grid tile = new Grid();
 
