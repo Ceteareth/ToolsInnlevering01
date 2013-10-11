@@ -21,10 +21,12 @@ namespace Innlevering01
     public partial class MainWindow : Window
     {
         ImageHandler imgHandler;
+        List<GridTile> gridTileContainer;
 
         public MainWindow()
         {
             imgHandler = new ImageHandler();
+            gridTileContainer = new List<GridTile>();
             InitializeComponent();
         }
 
@@ -76,8 +78,11 @@ namespace Innlevering01
         // Responds to clicks on tiles in left panel
         private void tileListener(object sender, EventArgs e)
         {
-            ListBoxItem clickedTile = sender as ListBoxItem;
-            Console.WriteLine("Sender: " + clickedTile.Name);
+            Button clickedTile = sender as Button;
+            if (clickedTile != null)
+            {
+                Console.WriteLine("Sender: " + Grid.GetRow(clickedTile));
+            }
         }
 
         private void exit(object sender, EventArgs e)
@@ -92,6 +97,7 @@ namespace Innlevering01
             int c = Grid.GetColumn(element);
             int r = Grid.GetRow(element);
 
+
             Console.WriteLine("Column: " + c + " Row: " + r);
         }
 
@@ -103,22 +109,29 @@ namespace Innlevering01
         // Might approach this differently, hard to get coordinates correctly.
         private void AddRows(Size recSize)
         {
-            UniGrid.Columns = (int)(UniGrid.ActualWidth / recSize.Width);
-            UniGrid.Rows = (int)(UniGrid.ActualHeight / recSize.Height);
-            Console.WriteLine("Column: " + UniGrid.Columns + " Row: " + UniGrid.Rows);
-            for (int i = 0; i < UniGrid.Columns * UniGrid.Rows; i++)
+            for (int i = 0; i < 10; i++)
             {
-                UniGrid.Children.Add(new Rectangle { Fill = new SolidColorBrush(Colors.Yellow), Margin = new Thickness(1) });
+                ColumnDefinition colDef = new ColumnDefinition();
+                colDef.Width = new GridLength(20);
+                UniGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                RowDefinition rowDef = new RowDefinition();
+                rowDef.Height = new GridLength(10);
+                UniGrid.RowDefinitions.Add(new RowDefinition());
             }
 
-            int columnCounter = 0;
-            for (int i = 0; i < UniGrid.Columns * UniGrid.Rows; i++)
-            {   
-                Console.WriteLine(UniGrid.Children[i] + " on column " + columnCounter + " row " + (int)i / UniGrid.Columns);
-                if (columnCounter != UniGrid.Columns - 1)
-                    columnCounter++;
-                else
-                    columnCounter = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    Grid tile = new Grid();
+
+                    tile.Background = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
+                    tile.ShowGridLines = true;
+                    Console.WriteLine("Created tile " + i + " with height " + tile.ActualHeight + " and width " + tile.ActualWidth);
+                    Grid.SetColumn(tile, i);
+                    Grid.SetRow(tile, j);
+                    UniGrid.Children.Add(tile);
+                }
             }
         }
     }
