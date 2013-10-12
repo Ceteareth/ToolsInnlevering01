@@ -13,9 +13,16 @@
                 </MenuItem>
             </Menu>
             <TextBox DockPanel.Dock="Bottom" BorderBrush="#FF252526" Background="#FF2D2D30" BorderThickness="0,0,0,0"></TextBox>
-            <StackPanel DockPanel.Dock="Left" x:Name ="tileMainWrap" Width="160" Loaded="tileContainer_Loaded" Orientation="Vertical" Background="#FF252526" />
+            <Grid x:Name="leftContainer" Background="#FF2D2D30" DockPanel.Dock="Left">
+                <StackPanel x:Name ="tileMainWrap" Width="160" Loaded="tileContainer_Loaded" Orientation="Vertical" Background="#FF252526" Margin="0,0,0,163" />
+                <Grid  Background="#FF252526" Margin="0,384,0,0">
+                    <Label Foreground="#FFF1F1D5" BorderThickness="0" HorizontalContentAlignment="Center">Selected tile</Label>
+                    <Label x:Name="selectedTileGrid" Foreground="#FFF1F1D5" BorderThickness="0" HorizontalContentAlignment="Center" Margin="10,27,10,10"></Label>
+                </Grid>
+            </Grid>
+            
             <Grid x:Name="mainGrid" Background="#FF3A3A3A" Width="600" Loaded="mainGrid_Loaded" >
-                <Grid Name="UniGrid" ShowGridLines="True" PreviewMouseDown="OnMouseMove"></Grid>
+                <Grid Name="UniGrid" ShowGridLines="True" PreviewMouseDown="gridTileListener"></Grid>
             </Grid>
         </DockPanel>
     </Grid>

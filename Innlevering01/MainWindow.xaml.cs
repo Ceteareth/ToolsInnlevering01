@@ -22,6 +22,7 @@ namespace Innlevering01
     {
         ImageHandler imgHandler;
         List<GridTile> gridTileContainer;
+        Image selectedTile;
 
         public MainWindow()
         {
@@ -49,7 +50,7 @@ namespace Innlevering01
                 ListBoxItem firstItem = new ListBoxItem();
                 firstItem.Name = tiles[i].Filename.Replace(".png", "");
                 firstItem.Content = firstImage;
-                firstItem.PreviewMouseDown += tileListener;
+                firstItem.PreviewMouseDown += tileSelectionListener;
 
                 horizontalContainer.Children.Add(firstItem);
 
@@ -63,7 +64,7 @@ namespace Innlevering01
                     ListBoxItem secondItem = new ListBoxItem();
                     secondItem.Name = tiles[i + 1].Filename.Replace(".png", "");
                     secondItem.Content = secondImage;
-                    secondItem.PreviewMouseDown += tileListener;
+                    secondItem.PreviewMouseDown += tileSelectionListener;
 
                     horizontalContainer.Children.Add(secondItem);
                 }
@@ -76,13 +77,26 @@ namespace Innlevering01
         }
 
         // Responds to clicks on tiles in left panel
-        private void tileListener(object sender, EventArgs e)
+        private void tileSelectionListener(object sender, MouseEventArgs e)
         {
-            Button clickedTile = sender as Button;
-            if (clickedTile != null)
+            var element = (UIElement)e.Source;
+
+            if (element != null)
             {
-                Console.WriteLine("Sender: " + Grid.GetRow(clickedTile));
+                Image source = element as Image;
+                Console.WriteLine("Sender: " + source.Source);
+                setSelectedTileImage(source);
             }
+        }
+
+        private void setSelectedTileImage(Image image)
+        {
+            ImageBrush brush = new ImageBrush();
+            brush.ImageSource = image.Source;
+            selectedTile = image;
+            selectedTileGrid.Width = 100;
+            selectedTileGrid.Height = 100;
+            selectedTileGrid.Background = brush;
         }
 
         private void exit(object sender, EventArgs e)
@@ -90,44 +104,51 @@ namespace Innlevering01
             Environment.Exit(0);
         }
 
-        private void OnMouseMove(object sender, MouseEventArgs e)
+        private void gridTileListener(object sender, MouseEventArgs e)
         {
             var element = (UIElement)e.Source;
+            setTileBackground(Grid.GetRow(element), Grid.GetColumn(element));
+        }
 
-            int c = Grid.GetColumn(element);
-            int r = Grid.GetRow(element);
+        private void setTileBackground(int row, int column)
+        {
+            ImageBrush brush = new ImageBrush();
+            brush.ImageSource = selectedTile.Source;
 
-
-            Console.WriteLine("Column: " + c + " Row: " + r);
+            var tileToChange = UniGrid.Children.Cast<Grid>().First(ele => Grid.GetRow(ele) == row && Grid.GetColumn(ele) == column);
+            tileToChange.Background = brush;
         }
 
         void mainGrid_Loaded(object sender, RoutedEventArgs e)
         {
-            AddRows(new Size(64, 64));
+            AddRows(20, 20);
         }
 
-        // Might approach this differently, hard to get coordinates correctly.
-        private void AddRows(Size recSize)
+        private void AddRows(int rows, int columns)
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < columns; i++)
             {
                 ColumnDefinition colDef = new ColumnDefinition();
-                colDef.Width = new GridLength(20);
+                colDef.Width = new GridLength(10);
                 UniGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                
+            }
+
+            for (int i = 0; i < rows; i++)
+            {
                 RowDefinition rowDef = new RowDefinition();
                 rowDef.Height = new GridLength(10);
                 UniGrid.RowDefinitions.Add(new RowDefinition());
             }
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < rows; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < columns; j++)
                 {
                     Grid tile = new Grid();
 
                     tile.Background = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
                     tile.ShowGridLines = true;
-                    Console.WriteLine("Created tile " + i + " with height " + tile.ActualHeight + " and width " + tile.ActualWidth);
                     Grid.SetColumn(tile, i);
                     Grid.SetRow(tile, j);
                     UniGrid.Children.Add(tile);
