@@ -77,11 +77,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="User Controls\LeftPanel.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="User Controls\LeftPanel.xaml.cs">
+      <DependentUpon>LeftPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="User Controls\LeftPanel.Designer.cs">
-      <DependentUpon>LeftPanel.cs</DependentUpon>
+    <Compile Include="User Controls\MainGrid.xaml.cs">
+      <DependentUpon>MainGrid.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -98,6 +98,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="User Controls\LeftPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User Controls\MainGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -116,9 +124,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="User Controls\LeftPanel.resx">
-      <DependentUpon>LeftPanel.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
