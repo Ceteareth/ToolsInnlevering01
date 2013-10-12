@@ -1,8 +1,9 @@
-﻿using System.Windows.Media;
+﻿using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Innlevering01
 {
-    class ImageNode
+    class ImageNode : TreeViewItem
     {
         public ImageSource ImageSource { get; set; }
         public string Filename { get; set; }
@@ -11,9 +12,9 @@ namespace Innlevering01
         public ImageNode(ImageSource image, string filename, string filepath)
         {
             Filepath = filepath;
-            filename.Replace(".png", "");
             ImageSource = image;
-            Filename = filename;
+            Name = filename.Replace(".png", "");
+            Header = filename.Replace(".png", "");
         }
     }
 }

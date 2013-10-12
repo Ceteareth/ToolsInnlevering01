@@ -7,11 +7,11 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
     <Grid x:Name="LeftContainer" Background="#FF2D2D30" DockPanel.Dock="Left">
-        <StackPanel x:Name ="TileMainWrap" Width="160" Loaded="tileContainer_Loaded" Orientation="Vertical" Background="#FF252526" Margin="0,0,0,163" />
-        <Grid  Background="#FF252526" Margin="0,384,0,0">
-                <Label Foreground="#FFF1F1D5" BorderThickness="0" HorizontalContentAlignment="Center" >Selected tile</Label>
-                <Label x:Name="SelectedTileGrid" Foreground="#FFF1F1D5" HorizontalContentAlignment="Center" BorderThickness="0"  Margin="10,27,10,10"></Label>
+        <!--<StackPanel x:Name ="TileMainWrap" Width="160" Loaded="tileContainer_Loaded" Orientation="Vertical" Background="#FF252526" Margin="0,0,0,163" />-->
+        <TreeView x:Name="TileMainWrap" Width="160" Loaded="tileContainer_Loaded" Background="#FF252526" Foreground="#FFF1F1D5" Margin="0,0,0,163" BorderThickness="0"/>
+        <Grid  Background="#FF252526" Margin="0,384,0,0" >
+            <Label Foreground="#FFF1F1D5" BorderThickness="0" HorizontalContentAlignment="Center" >Selected tile</Label>
+            <Label x:Name="SelectedTileGrid" Foreground="#FFF1F1D5" HorizontalContentAlignment="Center" BorderThickness="0"  Margin="10,27,10,10"></Label>
         </Grid>
-
     </Grid>
 </UserControl>

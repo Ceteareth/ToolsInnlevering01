@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Controls;
 using System.IO;
 using System.Windows.Media.Imaging;
@@ -39,10 +40,11 @@ namespace Innlevering01
             return images;
         }
 
-        public void StorePicture( ImageNode image )
+        public void StoreImage( ImageNode image )
         {
             byte[] imageData;
             String filename = images[0].Filepath;
+
            // Read the file into a byte array
             using(FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
             {
@@ -50,11 +52,10 @@ namespace Innlevering01
                 fs.Read( imageData, 0, (int)fs.Length );
             }
 
-            DataContext dataContext = dbh.DataContxt;
+            int count = dbh.TileTable.Count();
 
             tile til = new tile
             {
-                Id = 0,
                 collisionMap = "000000000",
                 image = imageData,
                 tileName = "Test"
@@ -65,7 +66,6 @@ namespace Innlevering01
             try
             {
                 dbh.DataContxt.SubmitChanges();
-                Console.WriteLine("Successfully added image.");
             }
 
             catch (Exception e)

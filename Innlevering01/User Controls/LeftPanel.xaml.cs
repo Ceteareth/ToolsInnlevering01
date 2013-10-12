@@ -32,7 +32,7 @@ namespace Innlevering01.User_Controls
             _imgHandler = new ImageHandler();
         }
 
-        private void tileContainer_Loaded(object sender, RoutedEventArgs e)
+        /*private void tileContainer_Loaded(object sender, RoutedEventArgs e)
         {
             ImageNode[] tiles = _imgHandler.getListBoxItemImages();
 
@@ -43,7 +43,7 @@ namespace Innlevering01.User_Controls
                 StackPanel horizontalContainer = new StackPanel { Orientation = Orientation.Horizontal };
 
                 Image firstImage = new Image { Source = tiles[i].ImageSource, Margin = new Thickness(5) };
-                _imgHandler.StorePicture(tiles[i]);
+                _imgHandler.StoreImage(tiles[i]);
 
                 // Enable selection, and removes .png from the name
                 ListBoxItem firstItem = new ListBoxItem
@@ -75,18 +75,29 @@ namespace Innlevering01.User_Controls
                 else
                     break;
 
-                TileMainWrap.Children.Add(horizontalContainer);
+                //TileMainWrap.Children.Add(horizontalContainer);
+            }
+        }*/
+         
+
+        private void tileContainer_Loaded(object sender, RoutedEventArgs e)
+        {
+            ImageNode[] tiles = _imgHandler.getListBoxItemImages();
+
+            foreach (ImageNode tile in tiles)
+            {
+                tile.PreviewMouseDown += TileSelectionListener;
+                TileMainWrap.Items.Add(tile);
             }
         }
 
         // Responds to clicks on tiles in left panel
         private void TileSelectionListener(object sender, MouseEventArgs e)
         {
-            var element = (UIElement)e.Source;
+            var element = (ImageNode)e.Source;
 
             if (element == null) return;
-            Image source = element as Image;
-            SetSelectedTileImage(source);
+            SetSelectedTileImage(new Image(){Source = element.ImageSource});
         }
 
         // Sets the active tile to be used on the grid

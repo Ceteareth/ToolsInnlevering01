@@ -41,7 +41,6 @@ namespace Innlevering01
             {
                 // Open document 
                 string filename = dlg.FileName;
-
             }
         }
     }
