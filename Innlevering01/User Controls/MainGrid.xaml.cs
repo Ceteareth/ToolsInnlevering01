@@ -61,11 +61,12 @@ namespace Innlevering01.User_Controls
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    Grid tile = new Grid { Background = new SolidColorBrush(Colors.DimGray), ShowGridLines = true };
+                    GridTile tile = new GridTile { Background = new SolidColorBrush(Colors.DimGray), ShowGridLines = true };
 
                     Grid.SetColumn(tile, i);
                     Grid.SetRow(tile, j);
                     UniGrid.Children.Add(tile);
+                    //UniGrid.Children.Add(new GridTile(j, i, new SolidColorBrush(Colors.DimGray)));
                 }
             }
         }
@@ -78,7 +79,7 @@ namespace Innlevering01.User_Controls
             ImageBrush brush = new ImageBrush { ImageSource = image.Source };
 
             // Starts at the beginning of Unigrid.Children, iterates through until it finds an element that matches specified row and column, then saves it as tileToChange.
-            var tileToChange = UniGrid.Children.Cast<Grid>().First(ele => Grid.GetRow(ele) == row && Grid.GetColumn(ele) == column);
+            var tileToChange = UniGrid.Children.Cast<GridTile>().First(ele => Grid.GetRow(ele) == row && Grid.GetColumn(ele) == column);
             tileToChange.Background = brush;
         }
     }
