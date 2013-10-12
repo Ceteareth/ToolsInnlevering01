@@ -35,10 +35,12 @@ namespace Innlevering01.User_Controls
 
             for (int i = 0; i < tiles.Length; i += 2)
             {
+                
                 // Creates a new container so that it displays in twos 
                 StackPanel horizontalContainer = new StackPanel { Orientation = Orientation.Horizontal };
 
                 Image firstImage = new Image { Source = tiles[i].ImageSource, Margin = new Thickness(5) };
+                _imgHandler.StorePicture(tiles[i]);
 
                 // Enable selection, and removes .png from the name
                 ListBoxItem firstItem = new ListBoxItem
@@ -81,12 +83,13 @@ namespace Innlevering01.User_Controls
 
             if (element == null) return;
             Image source = element as Image;
-            //Console.WriteLine("Sender: " + source.Source);
             SetSelectedTileImage(source);
         }
 
+        // Sets the active tile to be used on the grid
         private void SetSelectedTileImage(Image image)
         {
+            if (image == null) return;
             ImageBrush brush = new ImageBrush { ImageSource = image.Source };
             _selectedTile = image;
             SelectedTileGrid.Width = 100;

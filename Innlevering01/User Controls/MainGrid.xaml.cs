@@ -25,19 +25,23 @@ namespace Innlevering01.User_Controls
             InitializeComponent();
         }
 
+        // Listens for mouse click activity on the grid, and responds accordingly.
         private void GridTileListener(object sender, MouseEventArgs e)
         {
             var element = (UIElement)e.Source;
             SetTileBackground(Grid.GetRow(element), Grid.GetColumn(element));
         }
 
+        // Default grid size is 20x20, doesn't work well with uneven columns and rows. Runs when the mainGrid WPF component is loaded
         void mainGrid_Loaded(object sender, RoutedEventArgs e)
         {
             AddRows(20, 20);
         }
 
+        // Adds all the rows and columns to the grid area.
         private void AddRows(int rows, int columns)
         {
+            // Adds all the columns first.
             for (int i = 0; i < columns; i++)
             {
                 ColumnDefinition colDef = new ColumnDefinition { Width = new GridLength(10) };
@@ -45,12 +49,14 @@ namespace Innlevering01.User_Controls
 
             }
 
+            // Adds all the rows.
             for (int i = 0; i < rows; i++)
             {
                 RowDefinition rowDef = new RowDefinition { Height = new GridLength(10) };
                 UniGrid.RowDefinitions.Add(new RowDefinition());
             }
 
+            // Populates the grid with default start color, and adds the grid tile to a UniGrid's children collection.
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < columns; j++)
@@ -64,12 +70,14 @@ namespace Innlevering01.User_Controls
             }
         }
 
+        // Sets the background of a specific tile
         private void SetTileBackground(int row, int column)
         {
             Image image = LeftPanel.GetSelectedTileInfo();
             if (image == null) return;
             ImageBrush brush = new ImageBrush { ImageSource = image.Source };
 
+            // Starts at the beginning of Unigrid.Children, iterates through until it finds an element that matches specified row and column, then saves it as tileToChange.
             var tileToChange = UniGrid.Children.Cast<Grid>().First(ele => Grid.GetRow(ele) == row && Grid.GetColumn(ele) == column);
             tileToChange.Background = brush;
         }

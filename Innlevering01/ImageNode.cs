@@ -4,26 +4,16 @@ namespace Innlevering01
 {
     class ImageNode
     {
-        private ImageSource imageSource;
-        private string fileName;
+        public ImageSource ImageSource { get; set; }
+        public string Filename { get; set; }
+        public string Filepath { get; private set; }
 
-        public ImageSource ImageSource
+        public ImageNode(ImageSource image, string filename, string filepath)
         {
-            get { return imageSource; }
-            set { imageSource = value; }
-        }
-
-        public string Filename
-        {
-            get { return fileName; }
-            set { fileName = value; }
-        }
-
-        public ImageNode(ImageSource image, string filename)
-        {
+            Filepath = filepath;
             filename.Replace(".png", "");
-            imageSource = image;
-            fileName = filename;
+            ImageSource = image;
+            Filename = filename;
         }
     }
 }

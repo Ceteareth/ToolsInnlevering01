@@ -14,12 +14,10 @@ namespace Innlevering01
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<GridTile> gridTileContainer;
-
         public MainWindow()
         {
-            gridTileContainer = new List<GridTile>();
             InitializeComponent();
+            DatabaseHandler dbh = new DatabaseHandler();
         }
 
         private void exit(object sender, EventArgs e)
@@ -27,53 +25,24 @@ namespace Innlevering01
             Environment.Exit(0);
         }
 
-        /*private void GridTileListener(object sender, MouseEventArgs e)
+        private void ImportAsset_OnClick(object sender, RoutedEventArgs e)
         {
-            var element = (UIElement)e.Source;
-            SetTileBackground(Grid.GetRow(element), Grid.GetColumn(element));
-        }*/
+            // Configure open file dialog box 
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.FileName = ""; // Default file name 
+            dlg.DefaultExt = ".png"; // Default file extension 
+            dlg.Filter = "Image file (.png)|*.png"; // Filter files by extension 
 
-        /*private void SetTileBackground(int row, int column)
-        {
-            Image image = LeftPanel.GetSelectedTileInfo();
-            if (image == null) return;
-            ImageBrush brush = new ImageBrush {ImageSource = image.Source};
+            // Show open file dialog box 
+            Nullable<bool> result = dlg.ShowDialog();
 
-            var tileToChange = UniGrid.Children.Cast<Grid>().First(ele => Grid.GetRow(ele) == row && Grid.GetColumn(ele) == column);
-            tileToChange.Background = brush;
-        }*/
+            // Process open file dialog box results 
+            if (result == true)
+            {
+                // Open document 
+                string filename = dlg.FileName;
 
-        /*void mainGrid_Loaded(object sender, RoutedEventArgs e)
-        {
-            AddRows(20, 20);
+            }
         }
-
-        private void AddRows(int rows, int columns)
-        {
-            for (int i = 0; i < columns; i++)
-            {
-                ColumnDefinition colDef = new ColumnDefinition {Width = new GridLength(10)};
-                UniGrid.ColumnDefinitions.Add(new ColumnDefinition());
-                
-            }
-
-            for (int i = 0; i < rows; i++)
-            {
-                RowDefinition rowDef = new RowDefinition {Height = new GridLength(10)};
-                UniGrid.RowDefinitions.Add(new RowDefinition());
-            }
-
-            for (int i = 0; i < rows; i++)
-            {
-                for (int j = 0; j < columns; j++)
-                {
-                    Grid tile = new Grid {Background = new SolidColorBrush(Colors.DimGray), ShowGridLines = true};
-
-                    Grid.SetColumn(tile, i);
-                    Grid.SetRow(tile, j);
-                    UniGrid.Children.Add(tile);
-                }
-            }
-        }*/
     }
 }
