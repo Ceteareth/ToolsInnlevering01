@@ -61,7 +61,7 @@ namespace Innlevering01.User_Controls
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    GridTile tile = new GridTile
+                    GridTile tile = new GridTile(0,0,null)
                     {
                         Background = new SolidColorBrush(Colors.DimGray), 
                         BorderBrush = new SolidColorBrush(Colors.Black), 
@@ -78,7 +78,7 @@ namespace Innlevering01.User_Controls
             }
         }
 
-        // Sets the background of a specific tile
+        // Sets the background of or rotates a specific tile
         private void SetTileBackground(int row, int column)
         {
             Image image = LeftPanel.GetSelectedTileInfo();
@@ -87,7 +87,28 @@ namespace Innlevering01.User_Controls
 
             // Starts at the beginning of Unigrid.Children, iterates through until it finds an element that matches specified row and column, then saves it as tileToChange.
             var tileToChange = UniGrid.Children.Cast<GridTile>().First(ele => Grid.GetRow(ele) == row && Grid.GetColumn(ele) == column);
+
+            if (tileToChange.image != null)
+            {
+                if (tileToChange.image == image)
+                {
+                    if (tileToChange.Rotation < 3)
+                    {
+                        tileToChange.Rotation++;
+                    }
+                    else { tileToChange.Rotation = 0; }
+                    //Rotates the tile 90 degrees clockwise
+                    RotateTransform rotateTransform = new RotateTransform();
+                    rotateTransform.CenterX = 0.5;
+                    rotateTransform.CenterY = 0.5;
+                    rotateTransform.Angle = tileToChange.Rotation*90;
+                    brush.RelativeTransform = rotateTransform;
+                }
+            }
+            //Used to check if we click the same tile
+            tileToChange.image = image;
             tileToChange.Background = brush;
+            
         }
     }
 }

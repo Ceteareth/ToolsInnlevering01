@@ -7,16 +7,16 @@ namespace Innlevering01
 {
     class GridTile : TextBox
     {
-        public int Rows { get; internal set; }
-        public int Columns { get; internal set; }
-        public Brush Content { get; internal set; }
+        public int Rotation;
+        public int Id { get; set; }
+        public Image image { get; set; }
 
         // Can now add more stuff we need to, rotation and such.
-        /*public GridTile(int row, int column, Brush content)
+        public GridTile(int _rotation, int _id, Image _image)
         {
-            Rows = row;
-            Columns = column;
-            Content = content;
-        }  */      
+            Rotation = _rotation;
+            Id = _id;
+            image = _image;
+        }      
     }
 }
