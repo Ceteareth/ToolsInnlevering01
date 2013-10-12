@@ -25,6 +25,10 @@ namespace Innlevering01.User_Controls
 
         public LeftPanel()
         {
+            
+#if DEBUG
+            System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
+#endif
             InitializeComponent();
             _imgHandler = new ImageHandler();
         }
@@ -46,7 +50,7 @@ namespace Innlevering01.User_Controls
                 ListBoxItem firstItem = new ListBoxItem
                 {
                     Name = tiles[i].Filename.Replace(".png", ""),
-                    Content = firstImage
+                    Content = firstImage,
                 };
 
                 firstItem.PreviewMouseDown += TileSelectionListener;

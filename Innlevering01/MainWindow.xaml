@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:userControl="clr-namespace:Innlevering01.User_Controls"
         Title="SupahDupahLevelEditor" Height="607" Width="800" Background="#FF2D2D30" BorderBrush="#FF252526">
+    
     <Grid>
         <DockPanel>
             <Menu DockPanel.Dock="Top" Background="#FF2D2D30" BorderBrush="#FF252526">

@@ -16,7 +16,7 @@ namespace Innlevering01
         public DatabaseHandler()
         {
             // DataContext takes a connection string - gotta make this one dynamic
-            DataContxt = new DataContext("Data Source=MOTHERSHIP;Initial Catalog=Database;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False");
+            DataContxt = new DataContext("Data Source=localhost;Initial Catalog=Database;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False");
 
             // Get a typed table to run queries.
             TileTable = DataContxt.GetTable<tile>();
