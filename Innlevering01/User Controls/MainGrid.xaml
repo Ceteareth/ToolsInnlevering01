@@ -6,6 +6,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid x:Name="mainGrid" Background="#FF3A3A3A" Width="600" Loaded="mainGrid_Loaded" >
-        <Grid Name="UniGrid" ShowGridLines="True" PreviewMouseDown="GridTileListener" Width="600" Height="600"></Grid>
+        <Grid Name="UniGrid" ShowGridLines="False" PreviewMouseDown="GridTileListener" Width="600" Height="600"></Grid>
     </Grid>
 </UserControl>

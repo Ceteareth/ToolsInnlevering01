@@ -24,8 +24,7 @@ namespace Innlevering01.User_Controls
         static Image _selectedTile;
 
         public LeftPanel()
-        {
-            
+        {     
 #if DEBUG
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
 #endif

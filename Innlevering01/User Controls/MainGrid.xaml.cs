@@ -61,12 +61,19 @@ namespace Innlevering01.User_Controls
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    GridTile tile = new GridTile { Background = new SolidColorBrush(Colors.DimGray), ShowGridLines = true };
+                    GridTile tile = new GridTile
+                    {
+                        Background = new SolidColorBrush(Colors.DimGray), 
+                        BorderBrush = new SolidColorBrush(Colors.Black), 
+                        BorderThickness = new Thickness(0.5, 0.5, 0.0, 0.0),
+                        IsReadOnly = true,
+                        Cursor = Cursors.Arrow
+                        //Margin = new Thickness(0.5)
+                    };
 
                     Grid.SetColumn(tile, i);
                     Grid.SetRow(tile, j);
                     UniGrid.Children.Add(tile);
-                    //UniGrid.Children.Add(new GridTile(j, i, new SolidColorBrush(Colors.DimGray)));
                 }
             }
         }

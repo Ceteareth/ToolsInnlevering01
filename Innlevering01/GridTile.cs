@@ -5,7 +5,7 @@ using System.Windows.Shapes;
 
 namespace Innlevering01
 {
-    class GridTile : Grid
+    class GridTile : TextBox
     {
         public int Rows { get; internal set; }
         public int Columns { get; internal set; }
