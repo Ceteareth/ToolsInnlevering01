@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace Innlevering01.User_Controls
 {
-    /// <summary>
-    /// Interaction logic for LeftPanel.xaml
-    /// </summary>
+
     public partial class LeftPanel : UserControl
     {
         readonly ImageHandler _imgHandler;
@@ -30,6 +28,7 @@ namespace Innlevering01.User_Controls
 #endif
             InitializeComponent();
             _imgHandler = new ImageHandler();
+            _imgHandler.LoadImages();
         }
 
         /*private void tileContainer_Loaded(object sender, RoutedEventArgs e)
@@ -42,7 +41,7 @@ namespace Innlevering01.User_Controls
                 // Creates a new container so that it displays in twos 
                 StackPanel horizontalContainer = new StackPanel { Orientation = Orientation.Horizontal };
 
-                Image firstImage = new Image { Source = tiles[i].ImageSource, Margin = new Thickness(5) };
+                Image firstImage = new Image { Source = tiles[i].Image, Margin = new Thickness(5) };
                 _imgHandler.StoreImage(tiles[i]);
 
                 // Enable selection, and removes .png from the name
@@ -58,7 +57,7 @@ namespace Innlevering01.User_Controls
 
                 if (i + 1 < tiles.Length)
                 {
-                    Image secondImage = new Image { Source = tiles[i + 1].ImageSource, Margin = new Thickness(5) };
+                    Image secondImage = new Image { Source = tiles[i + 1].Image, Margin = new Thickness(5) };
 
                     // Enable selection, and removes .png from the name
                     ListBoxItem secondItem = new ListBoxItem
@@ -82,11 +81,13 @@ namespace Innlevering01.User_Controls
 
         private void tileContainer_Loaded(object sender, RoutedEventArgs e)
         {
-            ImageNode[] tiles = _imgHandler.getListBoxItemImages();
+            ImageNode[] tiles = _imgHandler.GetListBoxItemImages();
 
             foreach (ImageNode tile in tiles)
             {
                 tile.PreviewMouseDown += TileSelectionListener;
+                tile.Foreground = new SolidColorBrush(Color.FromArgb(255, 238, 238, 238));
+                tile.Opacity = 100;
                 TileMainWrap.Items.Add(tile);
             }
         }
@@ -97,17 +98,16 @@ namespace Innlevering01.User_Controls
             var element = (ImageNode)e.Source;
 
             if (element == null) return;
-            SetSelectedTileImage(new Image(){Source = element.ImageSource});
+            SetSelectedTileImage(element.Image);
         }
 
         // Sets the active tile to be used on the grid
         private void SetSelectedTileImage(Image image)
         {
             if (image == null) return;
+
             ImageBrush brush = new ImageBrush { ImageSource = image.Source };
             _selectedTile = image;
-            SelectedTileGrid.Width = 100;
-            SelectedTileGrid.Height = 100;
             SelectedTileGrid.Background = brush;
         }
 

@@ -68,7 +68,6 @@ namespace Innlevering01.User_Controls
                         BorderThickness = new Thickness(0.5, 0.5, 0.0, 0.0),
                         IsReadOnly = true,
                         Cursor = Cursors.Arrow
-                        //Margin = new Thickness(0.5)
                     };
 
                     Grid.SetColumn(tile, i);
@@ -98,17 +97,35 @@ namespace Innlevering01.User_Controls
                     }
                     else { tileToChange.Rotation = 0; }
                     //Rotates the tile 90 degrees clockwise
-                    RotateTransform rotateTransform = new RotateTransform();
-                    rotateTransform.CenterX = 0.5;
-                    rotateTransform.CenterY = 0.5;
-                    rotateTransform.Angle = tileToChange.Rotation*90;
+                    RotateTransform rotateTransform = new RotateTransform
+                    {
+                        CenterX = 0.5,
+                        CenterY = 0.5,
+                        Angle = tileToChange.Rotation*90
+                    };
                     brush.RelativeTransform = rotateTransform;
                 }
             }
             //Used to check if we click the same tile
             tileToChange.image = image;
             tileToChange.Background = brush;
-            
+        }
+
+        private void OpenCollisionDialogue(object sender, MouseEventArgs e)
+        {
+            var element = (UIElement)e.Source;
+
+            var tileToChange = UniGrid.Children.Cast<GridTile>().First(ele => Grid.GetRow(ele) == Grid.GetRow(element) && Grid.GetColumn(ele) == Grid.GetColumn(element));
+
+            CollisionMapDialogue cmd = new CollisionMapDialogue(tileToChange);
+            cmd.ShowDialog();
+
+
+
+            if (cmd.changed)
+            {
+                tileToChange.collisionMap = cmd.tempCollisionMap;
+            }
         }
     }
 }

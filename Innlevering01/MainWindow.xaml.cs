@@ -28,19 +28,22 @@ namespace Innlevering01
         private void ImportAsset_OnClick(object sender, RoutedEventArgs e)
         {
             // Configure open file dialog box 
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.FileName = ""; // Default file name 
-            dlg.DefaultExt = ".png"; // Default file extension 
-            dlg.Filter = "Image file (.png)|*.png"; // Filter files by extension 
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog
+            {
+                FileName = "",
+                DefaultExt = ".png",
+                Filter = "Image file (.png)|*.png"
+            };
 
             // Show open file dialog box 
-            Nullable<bool> result = dlg.ShowDialog();
+            bool? result = dlg.ShowDialog();
 
             // Process open file dialog box results 
             if (result == true)
             {
                 // Open document 
                 string filename = dlg.FileName;
+                Console.WriteLine(filename);
             }
         }
     }

@@ -7,19 +7,18 @@
     <Grid>
         <DockPanel>
             <Menu DockPanel.Dock="Top" Background="#FF2D2D30" BorderBrush="#FF252526">
-                <MenuItem Header="_FILE" Foreground="#FFF1F1D5" Background="#FF2D2D30" BorderBrush="#FF252526">
-                    <MenuItem x:Name="FileOpen" Foreground="#FFF1F1D5" Header="_Open" Background="#FF2D2D30" BorderBrush="#FF252526" />
-                    <MenuItem x:Name="FileClose" Foreground="#FFF1F1D5" Header="_Close" Background="#FF2D2D30" BorderBrush="#FF252526"/>
-                    <MenuItem x:Name="FileSave" Foreground="#FFF1F1D5" Header="_Save" Background="#FF2D2D30" BorderBrush="#FF252526" />
-                    <MenuItem x:Name="FileExit" Foreground="#FFF1F1D5" Header="_Exit" Background="#FF2D2D30" BorderBrush="#FF252526" Click="exit"/>
+                <MenuItem Header="_FILE" Foreground="#EEEEEE" Background="#FF2D2D30" BorderBrush="#FF252526">
+                    <MenuItem x:Name="FileOpen" Foreground="#EEEEEE" Header="_Open" Background="#FF2D2D30" BorderBrush="#FF252526" />
+                    <MenuItem x:Name="FileClose" Foreground="#EEEEEE" Header="_Close" Background="#FF2D2D30" BorderBrush="#FF252526"/>
+                    <MenuItem x:Name="FileSave" Foreground="#EEEEEE" Header="_Save" Background="#FF2D2D30" BorderBrush="#FF252526" />
+                    <MenuItem x:Name="FileExit" Foreground="#EEEEEE" Header="_Exit" Background="#FF2D2D30" BorderBrush="#FF252526" Click="exit"/>
                 </MenuItem>
-                <MenuItem Header="_ASSET" Foreground="#FFF1F1D5" Background="#FF2D2D30" BorderBrush="#FF252526">
-                    <MenuItem x:Name="ImportAsset" Header="_Import Asset" Foreground="#FFF1F1D5" Background="#FF2D2D30" BorderBrush="#FF252526" Click="ImportAsset_OnClick"/>
+                <MenuItem Header="_ASSET" Foreground="#EEEEEE" Background="#FF2D2D30" BorderBrush="#FF252526">
+                    <MenuItem x:Name="ImportAsset" Header="_Import Asset" Foreground="#EEEEEE" Background="#FF2D2D30" BorderBrush="#FF252526" Click="ImportAsset_OnClick"/>
                 </MenuItem>
             </Menu>
             <TextBox DockPanel.Dock="Bottom" BorderBrush="#FF252526" Background="#FF2D2D30" BorderThickness="0,0,0,0"></TextBox>
-            
-            <!-- As long as we're using project folder, it will be an error here pre-compile. -->
+
             <userControl:LeftPanel />
             <userControl:MainGrid />
         </DockPanel>
