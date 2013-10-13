@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Windows.Controls;
 using System.IO;
 using System.Windows.Media.Imaging;
-using System.Data.Linq;
-using Innlevering01.User_Controls;
 
 namespace Innlevering01
 {
     public class ImageHandler
     {
         ImageNode[] images;
-        private DatabaseHandler dbh;
-        // Gets images from the GFX folder for now
-        // Should be replaced by a database, shouldn't be too hard
+        private readonly DatabaseHandler dbh;
+
         public ImageHandler()
         {
             dbh = new DatabaseHandler();
@@ -25,10 +21,14 @@ namespace Innlevering01
             return images;
         }
 
+        // Checks if there's any database present with images, if not, it loads up some default images and saves
+        // those to the database.
         public void LoadImages()
         {
+            // Checks if there's anything in the tile database.
             int count = dbh.TileTable.Count();
 
+            // If there is, get all of it and populate the list with it.
             if (count > 0)
             {
                 images = new ImageNode[count];
@@ -37,6 +37,7 @@ namespace Innlevering01
                 var getAllQuery = from img in db.tiles
                     select img;
 
+                // Runs through all queries, creates new ImageNodes and adds them to the internal array.
                 int counter = 0;
                 foreach (tile t in getAllQuery)
                 {
@@ -55,6 +56,7 @@ namespace Innlevering01
                 }
             }
 
+                // if not, gets all the images from the included GFX folder and enters those into the database.
             else
             {
                 // Get dynamic project path and enters it into the database for a "default" collection of tiles
@@ -79,6 +81,7 @@ namespace Innlevering01
             }
         }
 
+        // Saves an image to the database.
         public void StoreImage( ImageNode image)
         {
             byte[] imageData;
@@ -91,15 +94,17 @@ namespace Innlevering01
                 fs.Read( imageData, 0, (int)fs.Length );
             }
 
+            // Creates a new database entry.
             tile til = new tile
             {
-                collisionMap = "000000000",
+                collisionMap = image.CollisionMap.ToString(),
                 image = imageData,
                 tileName = image.Name
             };
 
             dbh.TileTable.InsertOnSubmit(til);
 
+            // Tries to submit, if it fails, throws an exception.
             try
             {
                 dbh.DataContxt.SubmitChanges();

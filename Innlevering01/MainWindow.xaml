@@ -10,7 +10,7 @@
                 <MenuItem Header="_FILE" Foreground="#EEEEEE" Background="#FF2D2D30" BorderBrush="#FF252526">
                     <MenuItem x:Name="FileOpen" Foreground="#EEEEEE" Header="_Open" Background="#FF2D2D30" BorderBrush="#FF252526" PreviewMouseDown="OpenGrid"/>
                     <MenuItem x:Name="FileSave" Foreground="#EEEEEE" Header="_Save" Background="#FF2D2D30" BorderBrush="#FF252526" PreviewMouseDown="SaveGrid"/>
-                    <MenuItem x:Name="FileExit" Foreground="#EEEEEE" Header="_Exit" Background="#FF2D2D30" BorderBrush="#FF252526" Click="exit"/>
+                    <MenuItem x:Name="FileExit" Foreground="#EEEEEE" Header="_Exit" Background="#FF2D2D30" BorderBrush="#FF252526" Click="Exit"/>
                 </MenuItem>
                 <MenuItem Header="_ASSET" Foreground="#EEEEEE" Background="#FF2D2D30" BorderBrush="#FF252526">
                     <MenuItem x:Name="ImportAsset" Header="_Import Asset" Foreground="#EEEEEE" Background="#FF2D2D30" BorderBrush="#FF252526" Click="ImportAsset_OnClick"/>

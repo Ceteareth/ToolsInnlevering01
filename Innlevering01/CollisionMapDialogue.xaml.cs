@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 
 namespace Innlevering01
 {
+    // Used for changing the collision maps of tiles.
     public partial class CollisionMapDialogue : Window
     {
         public int[][] tempCollisionMap { get; private set; }
@@ -27,6 +28,8 @@ namespace Innlevering01
             InitializeComponent();
         }
 
+        // Fetches the image we're going to be using as our background, to easier represent how the 
+        // collision map is going to be.
         public CollisionMapDialogue(GridTile image)
         {
             InitializeComponent();
@@ -35,7 +38,7 @@ namespace Innlevering01
 
             tileToChange = image;
 
-            ImageBrush brush = new ImageBrush(image.image.Source);
+            ImageBrush brush = new ImageBrush(image.Image.Source);
             CollisionMapGrid.Background = brush;
 
             tempCollisionMap = new int[3][];
@@ -49,15 +52,16 @@ namespace Innlevering01
             LoadCollisionMap();
         }
 
+        // If there's anything in the collision map, we change the grid to represent that.
         private void LoadCollisionMap()
         {
             for (int column = 0; column < 3; column++)
             {
                 for (int row = 0; row < 3; row++)
                 {
-                    if (tileToChange.collisionMap == null) continue;
+                    if (tileToChange.CollisionMap == null) continue;
 
-                    if (tileToChange.collisionMap[column][row] == 1)
+                    if (tileToChange.CollisionMap[column][row] == 1)
                     {
                         var pendingChange = CollisionMapGrid.Children.Cast<TextBox>().First(e => Grid.GetRow(e) == row && Grid.GetColumn(e) == column);
                         pendingChange.Background = comparisonBrush;
@@ -66,29 +70,35 @@ namespace Innlevering01
             }
         }
 
+        // Responds to clicks made on the collision map editor grid.
         private void CollisionSelection(object sender, MouseButtonEventArgs e)
         {
             changed = true;
             var element = (TextBox)e.Source;
 
+            // Removes coloring representing denial of movement in the collision map.
             if (comparisonBrush.ToString().Equals(element.Background.ToString()))
             {
                 element.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
                 tempCollisionMap[Grid.GetColumn(element)][Grid.GetRow(element)] = 0;
             }
+            
+            // Sets a red colour on the collision map editor grid, and sets the collision map accordingly.
             else
             {
-                element.Background = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                element.Background = comparisonBrush;
                 tempCollisionMap[Grid.GetColumn(element)][Grid.GetRow(element)] = 1;
             }
         }
 
+        // If we don't want to do any changes, flip a bool so that no changes are done on the other side, and close the window.
         private void CancelButton(object sender, MouseButtonEventArgs e)
         {
             changed = false;
             Close();
         }
 
+        // If the user's ok with the changes, close the window and changes are caught in the editor grid, and written.
         private void OkButton(object sender, MouseButtonEventArgs e)
         {
             Close();

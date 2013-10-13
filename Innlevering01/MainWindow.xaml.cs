@@ -1,29 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Innlevering01.User_Controls;
 using Image = System.Windows.Controls.Image;
 
 namespace Innlevering01
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    // This is our main window.
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+
+            // Automatically maximizes the window.
             Application.Current.MainWindow.WindowState = WindowState.Maximized;
         }
 
-        private void exit(object sender, EventArgs e)
+        void Exit(object sender, EventArgs e)
         {
             Environment.Exit(0);
         }
@@ -46,8 +41,9 @@ namespace Innlevering01
             {
                 // Open document 
                 string filePath = dlg.FileName;
-                Image i = new Image();
+                Image img = new Image();
 
+                // Create image of selected file, sizing it down to minimize database and save file size.
                 BitmapImage bitmapImage = new BitmapImage();
                 bitmapImage.BeginInit();
                 bitmapImage.UriSource = new Uri(filePath);
@@ -57,22 +53,26 @@ namespace Innlevering01
 
                 Console.WriteLine(Path.GetFileName(filePath));
 
-                i.Source = bitmapImage;
-                ImageNode image = new ImageNode(i, Path.GetFileName(filePath).ToLower(), filePath);
+                img.Source = bitmapImage;
+                ImageNode image = new ImageNode(img, Path.GetFileName(filePath).ToLower(), filePath);
 
+                // Stores the image in the database, and loads the asset list again.
                 LeftPanel._imgHandler.StoreImage(image);
                 LeftPanel._imgHandler.LoadImages();
 
-                // Hackish solution, but out of time. Forces a reload of the left panel
+                // Hackish solution, but out of time. Forces a reload of the left panel to show the new asset.
                 LeftPanel.tileContainer_Loaded(new object(), new RoutedEventArgs());
             }
         }
 
+        // Serializes and saves the grid to C:/temp/saveFile.xml.
+        // Unfortunately this only enables for one save file, but time is running out.
         private void SaveGrid(object sender, MouseButtonEventArgs e)
         {
             MainGrid.SerializeGrid();
         }
 
+        // Deserializes and loads the grid from C:/temp/saveFile.xml. 
         private void OpenGrid(object sender, MouseButtonEventArgs e)
         {
             MainGrid.DeserializeGrid();

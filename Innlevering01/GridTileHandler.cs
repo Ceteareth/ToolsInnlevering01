@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using System.Xml.Linq;
 using Image = System.Windows.Controls.Image;
 
 namespace Innlevering01
@@ -20,6 +12,7 @@ namespace Innlevering01
             
         }
 
+        // Serializes a grid tile and returns it as such.
         public GridTileSerializable SerializeGridTile(GridTile tile)
         {
             byte[] imageData;
@@ -27,43 +20,45 @@ namespace Innlevering01
             if (tile.Name == "")
                 return new GridTileSerializable(tile.Rotation, tile.Id, null, null);
 
-            // Read the file into a byte array
+            // Read the file into a byte array, effectively converting the image in grid tile to a byte array, which we can 
+            // save in a XML file.
             using (MemoryStream fs = new MemoryStream())
             {
                 var encoder = new PngBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create((BitmapSource)tile.image.Source));
+                encoder.Frames.Add(BitmapFrame.Create((BitmapSource)tile.Image.Source));
                 encoder.Save(fs);
                 imageData = fs.GetBuffer();
             }
 
-            return new GridTileSerializable(tile.Rotation, tile.Id, imageData, tile.collisionMap)
+            return new GridTileSerializable(tile.Rotation, tile.Id, imageData, tile.CollisionMap)
             {
-                row = tile.row,
-                column = tile.column,
-                collisionMap = tile.collisionMap
+                Row = tile.Row,
+                Column = tile.Column,
+                CollisionMap = tile.CollisionMap
             };
         }
 
+        // Deserializes a serialized grid tile, making it fit for use in our editor grid.
         public GridTile DeserializeGridTile(GridTileSerializable tile)
         {
-            if (tile.image == null) return null;
+            if (tile.Image == null) return null;
 
             try
             {
+                // Effectively creating an image out of the byte array in the serialized grid tile.
                 Image myImage = new Image();
-                using (MemoryStream stream = new MemoryStream(tile.image))
+                using (MemoryStream stream = new MemoryStream(tile.Image))
                 {
                     PngBitmapDecoder decoder = new PngBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
                     BitmapSource bitmapSource = decoder.Frames[0];
                     myImage.Source = bitmapSource;
                 }
 
-                return new GridTile(tile.Rotation, tile.Id, myImage, tile.collisionMap)
+                return new GridTile(tile.Rotation, tile.Id, myImage, tile.CollisionMap)
                 {
-                    row = tile.row,
-                    column = tile.column,
-                    collisionMap = tile.collisionMap
-                    
+                    Row = tile.Row,
+                    Column = tile.Column,
+                    CollisionMap = tile.CollisionMap
                 };
             }
             catch (Exception ex)

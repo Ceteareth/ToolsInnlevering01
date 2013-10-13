@@ -1,38 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-
-namespace Innlevering01
+﻿namespace Innlevering01
 {
+    // This class saves all relevant information of a grid tile for XML serialization.
     public class GridTileSerializable
     {
         public int Rotation;
         public int Id { get; set; }
-        public byte[] image { get; set; }
-        public int[][] collisionMap { get; set; }
-        public int row { get; set; }
-        public int column { get; set; }
+        public byte[] Image { get; set; }
+        public int[][] CollisionMap { get; set; }
+        public int Row { get; set; }
+        public int Column { get; set; }
 
-        // Can now add more stuff we need to, rotation and such.
-        public GridTileSerializable(int _rotation, int _id, byte[] _image, int[][] _collisionMap)
+        public GridTileSerializable(int rotation, int id, byte[] image, int[][] collisionMap)
         {
-            Rotation = _rotation;
-            Id = _id;
-            image = _image;
+            Rotation = rotation;
+            Id = id;
+            Image = image;
 
-            collisionMap = new int[3][];
+            CollisionMap = new int[3][];
 
-            for (int i = 0; i < collisionMap.Length; i++)
+            for (int i = 0; i < this.CollisionMap.Length; i++)
             {
-                collisionMap[i] = new int[3];
+                CollisionMap[i] = new int[3];
             }
 
-            collisionMap = _collisionMap;
+            CollisionMap = collisionMap;
         }
 
+        // Must have a parameter free constructor to be able to serialize.
         public GridTileSerializable()
         {
             

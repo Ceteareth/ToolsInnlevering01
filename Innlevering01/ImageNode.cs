@@ -1,9 +1,9 @@
-﻿using System;
-using System.Windows.Controls;
-using System.Windows.Media;
+﻿using System.Windows.Controls;
 
 namespace Innlevering01
 {
+    // ImageNode inherits from TreeViewItem so that we easily can show it in a treeview.
+    // Otherwise it's very much alike GridTile.
     public class ImageNode : TreeViewItem
     {
         public Image Image { get; set; }
@@ -33,6 +33,7 @@ namespace Innlevering01
             }
         }
 
+        // A separate type of ImageNode not needing a file path, for images in database.
         public ImageNode(Image image, string filename)
         {
             CollisionMap = new int[3][];

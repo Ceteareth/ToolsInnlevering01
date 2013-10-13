@@ -1,34 +1,32 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
+﻿using System.Windows.Controls;
 
 namespace Innlevering01
 {
+    // Inherits from TextBox so we can populate a grid with them, but also contain some extra information we need.
+    // Otherwise it's very much alike ImageNode.
     public class GridTile : TextBox
     {
         public int Rotation;
         public int Id { get; set; }
-        public Image image { get; set; }
-        public int[][] collisionMap { get; set; }
-        public int column { get; set; }
-        public int row { get; set; }
+        public Image Image { get; set; }
+        public int[][] CollisionMap { get; set; }
+        public int Column { get; set; }
+        public int Row { get; set; }
 
-        // Can now add more stuff we need to, rotation and such.
-        public GridTile(int _rotation, int _id, Image _image, int[][] _collisionMap)
+        public GridTile(int rotation, int id, Image image, int[][] collisionMap)
         {
-            Rotation = _rotation;
-            Id = _id;
-            image = _image;
+            Rotation = rotation;
+            Id = id;
+            Image = image;
 
-            collisionMap = new int[3][];
+            CollisionMap = new int[3][];
 
-            for (int i = 0; i < collisionMap.Length; i++)
+            for (int i = 0; i < this.CollisionMap.Length; i++)
             {
-                collisionMap[i] = new int[3];
+                CollisionMap[i] = new int[3];
             }
 
-            collisionMap = _collisionMap;
+            CollisionMap = collisionMap;
         }      
     }
 }
