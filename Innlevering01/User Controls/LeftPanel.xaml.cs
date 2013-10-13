@@ -18,8 +18,8 @@ namespace Innlevering01.User_Controls
 
     public partial class LeftPanel : UserControl
     {
-        readonly ImageHandler _imgHandler;
-        static Image _selectedTile;
+        public ImageHandler _imgHandler;
+        static ImageNode _selectedTile;
 
         public LeftPanel()
         {     
@@ -79,7 +79,7 @@ namespace Innlevering01.User_Controls
         }*/
          
 
-        private void tileContainer_Loaded(object sender, RoutedEventArgs e)
+        public void tileContainer_Loaded(object sender, RoutedEventArgs e)
         {
             ImageNode[] tiles = _imgHandler.GetListBoxItemImages();
 
@@ -98,20 +98,22 @@ namespace Innlevering01.User_Controls
             var element = (ImageNode)e.Source;
 
             if (element == null) return;
-            SetSelectedTileImage(element.Image);
+            SetSelectedTileImage(element);
         }
 
         // Sets the active tile to be used on the grid
-        private void SetSelectedTileImage(Image image)
+        private void SetSelectedTileImage(ImageNode node)
         {
-            if (image == null) return;
+            if (node == null) return;
 
-            ImageBrush brush = new ImageBrush { ImageSource = image.Source };
-            _selectedTile = image;
+            ImageBrush brush = new ImageBrush { ImageSource = node.Image.Source };
+            _selectedTile = node;
+            _selectedTile.Image = node.Image;
             SelectedTileGrid.Background = brush;
+            _selectedTile.CollisionMap = node.CollisionMap;
         }
 
-        public static Image GetSelectedTileInfo()
+        public static ImageNode GetSelectedTileInfo()
         {
             return _selectedTile;
         }

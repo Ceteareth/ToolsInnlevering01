@@ -87,6 +87,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataClasses.dbml</DependentUpon>
     </Compile>
+    <Compile Include="GridTileHandler.cs" />
+    <Compile Include="GridTileSerializable.cs" />
     <Compile Include="User Controls\LeftPanel.xaml.cs">
       <DependentUpon>LeftPanel.xaml</DependentUpon>
     </Compile>

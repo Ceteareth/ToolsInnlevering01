@@ -5,10 +5,11 @@ using System.Windows.Controls;
 using System.IO;
 using System.Windows.Media.Imaging;
 using System.Data.Linq;
+using Innlevering01.User_Controls;
 
 namespace Innlevering01
 {
-    class ImageHandler
+    public class ImageHandler
     {
         ImageNode[] images;
         private DatabaseHandler dbh;
@@ -32,6 +33,7 @@ namespace Innlevering01
             {
                 images = new ImageNode[count];
                 DataClassesDataContext db = new DataClassesDataContext();
+
                 var getAllQuery = from img in db.tiles
                     select img;
 
@@ -40,13 +42,14 @@ namespace Innlevering01
                 {
                     byte[] buffer = t.image.ToArray();
                     MemoryStream stream = new MemoryStream(buffer);
-                    BitmapImage hng = new BitmapImage();
-                    hng.BeginInit();
-                    hng.StreamSource = stream;
-                    hng.EndInit();
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.StreamSource = stream;
+                    bitmapImage.EndInit();
 
-                    Image img = new Image {Source = hng};
+                    Image img = new Image {Source = bitmapImage};
 
+                    Console.WriteLine(t.tileName);
                     images[counter] = new ImageNode(img, t.tileName);
                     counter++;
                 }
@@ -107,5 +110,6 @@ namespace Innlevering01
                 Console.WriteLine(e);
             }
         }
+
     }
 }

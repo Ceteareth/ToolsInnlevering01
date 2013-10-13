@@ -1,21 +1,23 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace Innlevering01
 {
-    public class GridTile : TextBox
+    public class GridTileSerializable
     {
         public int Rotation;
         public int Id { get; set; }
-        public Image image { get; set; }
+        public byte[] image { get; set; }
         public int[][] collisionMap { get; set; }
-        public int column { get; set; }
         public int row { get; set; }
+        public int column { get; set; }
 
         // Can now add more stuff we need to, rotation and such.
-        public GridTile(int _rotation, int _id, Image _image, int[][] _collisionMap)
+        public GridTileSerializable(int _rotation, int _id, byte[] _image, int[][] _collisionMap)
         {
             Rotation = _rotation;
             Id = _id;
@@ -29,6 +31,11 @@ namespace Innlevering01
             }
 
             collisionMap = _collisionMap;
-        }      
+        }
+
+        public GridTileSerializable()
+        {
+            
+        }
     }
 }
